@@ -5,24 +5,39 @@
 }
 
 
-#game{
+:root {
+    --game-w: 100vw;
+    --game-h: 100vh;
+
+    --character-w: 50px;
+    --character-h: 50px;
+    
+    --obstacle-h:50px;
+    --obstacle-w:50px;
+}
+
+
+#game {
+    position:relative;
     padding: 10px;
     width: 100vw;
     height: 100vh;
     background-color: rgb(54, 255, 188);
 }
+
 /*--------------------------------------------------*/
 
-#gameInterface{
-    position: relative;
+#gameInterface {
+
+    position: absolute;
     padding: 10px;
-    background-color: aqua;
+    z-index: 2;
     width: 100%;
     height: 100%;
 }
 
 /*----------------------------*/
-#home{
+#home {
     width: 100%;
     height: 100%;
     background-color: rgb(255, 30, 0);
@@ -33,29 +48,30 @@
     padding: 10px;
 }
 
-#logoHome{
+#logoHome {
     width: fit-content;
     height: fit-content;
     background-color: rgb(221, 177, 172);
     padding: 10px;
     margin: 100px;
-    
+
 }
 
-#playBtn{
+#playBtn {
     width: fit-content;
     height: fit-content;
     background-color: rgb(221, 177, 172);
     padding: 10px;
 }
 
-#other{
+#other {
     width: fit-content;
     background-color: rgb(221, 177, 172);
     padding: 10px;
 }
+
 /*----------------------------*/
-#score{
+#score {
     position: absolute;
     left: 0;
     width: fit-content;
@@ -63,90 +79,122 @@
     background-color: rgb(221, 177, 172);
     padding: 10px;
 }
+
 /*----------------------------*/
-#optionsBtn{
+#optionsBtn {
     position: absolute;
     right: 0;
     width: fit-content;
     height: fit-content;
     background-color: rgb(221, 177, 172);
     padding: 10px;
-    
-   
 }
 
-#exitBtn{
-
-    width: 100%;
-    height: 100%;
-    background-color: rgb(155, 110, 106);
-    padding: 10px; 
-    margin: 2.5px 0;
-}
-
-#homeBtn{
+#exitBtn {
 
     width: 100%;
     height: 100%;
     background-color: rgb(155, 110, 106);
     padding: 10px;
     margin: 2.5px 0;
-    
 }
 
-#volumBtn{
+#homeBtn {
 
     width: 100%;
     height: 100%;
     background-color: rgb(155, 110, 106);
     padding: 10px;
     margin: 2.5px 0;
-    
+
 }
+
+#volumBtn {
+
+    width: 100%;
+    height: 100%;
+    background-color: rgb(155, 110, 106);
+    padding: 10px;
+    margin: 2.5px 0;
+
+}
+
 /*----------------------------*/
 
 /*--------------------------------------------------*/
 
-#gameElement{
-
+#gameElement {
+    position: absolute;
+    background-color: black;
+    width: var(--game-w);
+    height: calc(var(--game-h)* 0.3);
+    bottom: 50px;
+    z-index: 1;
 }
 
-#perso{
 
+
+.animJump{
+    animation: jump 0.8s linear;
 }
 
-#map{
-
+@keyframes jump{
+    0%{bottom: 0;}
+    50%{bottom: 100px;}
+    100%{bottom: 0;}
 }
 
-.obstacleSmall{
-
+#character {
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    width: var(--character-w);
+    height:var(--character-h);    
+    bottom:0px;
+    left: 0px;
+    z-index: 1;
 }
 
-.obstacle{
 
+
+#map {
+    position:relative;
+    background-color: rgb(130, 14, 14);
+    width: var( --game-w );
+    height:calc(var(--game-h) * 0.3);
+    overflow-x: hidden;
 }
 
-.obstcleBig{
-
+@keyframes obstacleAnimate {
+    from { left: calc(var(--game-w) + var(--obstacle-w)); }
+    to   { left: calc(var(--obstacle-w)*-2); }
 }
 
-.obstacle{
-
+#obstacleSmall {
+    position: absolute;
+    background-color: rgb(28, 46, 35);
+    padding: 3px;
+    bottom: 0px;
 }
 
-.obstacle{
-
+.obstacle {
+    background-color: rgb(198, 125, 125);
+    width: var(--obstacle-w);
+    height: var(--obstacle-h);
 }
 
-.obstcleBig{
-
+.obstacleBig {
+    animation: obstacleAnimate 3s linear infinite normal ;
+    position: absolute;
+    background-color: rgb(0, 47, 255);
+    padding: 3px;
+    bottom:0px;
+    left:0;
 }
 
-.obstacle{
 
-}
 
-.obstacle{
 
-}
+
+
+
+
