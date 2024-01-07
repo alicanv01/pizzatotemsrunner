@@ -8,97 +8,51 @@ console.log(playBtn)
 
 
 
-//const obstacleBig = document.getElementById("obstacleBig");
-//
-//// Obtenez le style calculé pour cet élément
-//const obstacleBigStyles = window.getComputedStyle(obstacleBig);
-//
-//// Récupérez la largeur à partir du style calculé
-//const obstacleBigWidth = obstacleBigStyles.getPropertyValue("width");
-//const obstacleBigHeight = obstacleBigStyles.getPropertyValue("height");
-//const obstacleBigTop = obstacleBigStyles.getPropertyValue("Top");
-//const obstacleBigLeft = obstacleBigStyles.getPropertyValue("Left");
+let dataNbr = 0;
 
-
-//console.log('obstacleBig:',obstacleBig,'. obstacleBigWidth:',obstacleBigWidth,' obstacleBigLeft:',obstacleBigLeft,' obstacleBigTop:',obstacleBigTop);
-//
-//const character = document.getElementById("character");
-//
-//// Obtenez le style calculé pour cet élément
-//const characterStyles = window.getComputedStyle(character);
-//
-//// Récupérez la largeur à partir du style calculé
-//const characterWidth = characterStyles.getPropertyValue("width");
-//const characterHeight = characterStyles.getPropertyValue("height");
-//const characterTop = characterStyles.getPropertyValue("top");
-//const characterBottom = characterStyles.getPropertyValue("bottom");
-//const characterLeft = characterStyles.getPropertyValue("left");
-//
-//console.log('character:',character,'. characterWidth:',characterWidth,' characterLeft:',characterLeft,' characterTop:',characterTop,' characterHeight:',characterHeight,' characterBottom:',characterBottom);
-//
-//console.log('characterBottom:',characterBottom)
-//console.log('obstacleBigHeight:',obstacleBigHeight)
-//console.log('obstacleBigLeft:',obstacleBigLeft)
-//
-//
-//if (characterBottom < obstacleBigHeight && obstacleBigLeft <= characterWidth) {
-//    console.log('c perdu')
-//}else{
-//    console.log('continu')
-//}
-
-
-const map = document.getElementById("map")
-
-
-
-
-
-const obstacleBig =document.createElement('div');
-obstacleBig.className = "obstacleBig";
-
-const nombreObstacles = 2; // Changer le nombre selon vos besoins
-
+function creationObtacle() {
+  const obstacleBig =document.createElement('div');
+  obstacleBig.className = "obstacleBig";
+  const nombreObstacles = Math.floor(Math.random() * 2) +1; // Changer le nombre selon vos besoins
+  const dataObtacle = dataNbr += 1
+  obstacleBig.setAttribute("Obstacle",`obstacle${dataObtacle}`)
 for (let i = 0; i < nombreObstacles; i++) {
   const obstacle = document.createElement("div");
   obstacle.className = "obstacle";
   obstacleBig.appendChild(obstacle);
 }
-
 map.appendChild(obstacleBig);
 
+}
+setInterval(creationObtacle, 3000);
 
 
 
-//var img =document.createElement('img');
-//
-//img.className=(`gif${item.key}`);
-//
-//img.setAttribute("src",`${item.link}`);
-//
-//span.appendChild(img)
+var obstacles = document.querySelectorAll(".obstacleBig");
 
+// ...
 
+function comparerEtAgirSurObstacles() {
+  var obstacles = document.querySelectorAll(".obstacleBig");
+  obstacles.forEach(function (obstacle) {
+    var style = window.getComputedStyle(obstacle);
+    var valeurLeft = parseFloat(style.getPropertyValue("left"));
 
+    if (valeurLeft + obstacle.offsetWidth < 0) {
+      obstacle.remove();
+      console.log("Obstacle supprimé car il est sorti de la page à gauche.");
+    }
+  });
+}
 
+setInterval(comparerEtAgirSurObstacles, 100);
 
-
-
-
-
-
-
-
-
-
-
-
+// ...
 
 
 
 
 let animationEnCours = false;
-
 
 document.addEventListener("click", function () {
   if (!animationEnCours) {
@@ -112,16 +66,15 @@ function removeJump() {
 }
 
 function jump() {
-  // Désactiver l'interaction avec l'écran entier (body)
+  
   document.body.style.pointerEvents = "none";
 
-  // Votre fonction à exécuter ici
   character.classList.add("animJump");
   animationEnCours = true;
 
-  // Réactiver l'interaction avec l'écran entier après l'exécution de la fonction
+  
   setTimeout(function () {
     document.body.style.pointerEvents = "auto";
     removeJump();
-  }, 800);
+  }, 1500);
 }
