@@ -135,12 +135,12 @@
 
 
 .animJump{
-    animation: jump 0.8s linear;
+    animation: jump 1.5s linear;
 }
 
 @keyframes jump{
     0%{bottom: 0;}
-    50%{bottom: 100px;}
+    50%{bottom: calc(var(--obstacle-h) * 5) ;}
     100%{bottom: 0;}
 }
 
@@ -164,10 +164,7 @@
     overflow-x: hidden;
 }
 
-@keyframes obstacleAnimate {
-    from { left: calc(var(--game-w) + var(--obstacle-w)); }
-    to   { left: calc(var(--obstacle-w)*-2); }
-}
+
 
 #obstacleSmall {
     position: absolute;
@@ -181,14 +178,26 @@
     width: var(--obstacle-w);
     height: var(--obstacle-h);
 }
-
+@keyframes obstacleAnimate {
+    from { left: 100vw; }
+    to   { left: -100vw; }
+}
 .obstacleBig {
+<<<<<<< HEAD
  /*animation: obstacleAnimate 3s linear infinite normal ;
     */position: absolute;
     background-color: rgb(0, 47, 255);
     padding: 3px;
     bottom:0px;
     left: 0px;
+=======
+    animation: obstacleAnimate 10s linear  normal ;
+    position: absolute;
+    background-color: rgb(0, 47, 255);
+    padding: 3px;
+    bottom:0px;
+    left:10vw;
+>>>>>>> 3682cf712779b41f4c3cc14c8c9835f61fd11efe
 }
 
 

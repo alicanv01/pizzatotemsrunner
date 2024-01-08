@@ -8,6 +8,7 @@ console.log(playBtn)
 
 
 
+<<<<<<< HEAD
 
 
 //console.log('obstacleBig:',obstacleBig,'. obstacleBigWidth:',obstacleBigWidth,' obstacleBigLeft:',obstacleBigLeft,' obstacleBigTop:',obstacleBigTop);
@@ -42,7 +43,16 @@ const randomNbr = Math.floor((Math.random() * 2) + 1);
 console.log(randomNbr)
 
 const nombreObstacles = randomNbr; // Changer le nombre selon vos besoins
+=======
+let dataNbr = 0;
+>>>>>>> 3682cf712779b41f4c3cc14c8c9835f61fd11efe
 
+function creationObtacle() {
+  const obstacleBig =document.createElement('div');
+  obstacleBig.className = "obstacleBig";
+  const nombreObstacles = Math.floor(Math.random() * 2) +1; // Changer le nombre selon vos besoins
+  const dataObtacle = dataNbr += 1
+  obstacleBig.setAttribute("Obstacle",`obstacle${dataObtacle}`)
 for (let i = 0; i < nombreObstacles; i++) {
   const obstacleBig = document.createElement('div');
   obstacleBig.className = "obstacleBig";
@@ -50,11 +60,18 @@ for (let i = 0; i < nombreObstacles; i++) {
   obstacle.className = "obstacle";
   obstacleBig.appendChild(obstacle); map.appendChild(obstacleBig);
 }
+<<<<<<< HEAD
+
+=======
+map.appendChild(obstacleBig);
+>>>>>>> 3682cf712779b41f4c3cc14c8c9835f61fd11efe
+
+}
+setInterval(creationObtacle, 3000);
 
 
 
-
-
+<<<<<<< HEAD
 
 var obstacleBigLeft = 300;
 const obstacleBiga = document.getElementsByClassName("obstacleBig")[0]; // Sélectionnez le premier élément de la collection
@@ -79,17 +96,33 @@ const anime = setInterval(animObstacle, 10);
 
 
 
+=======
+var obstacles = document.querySelectorAll(".obstacleBig");
+>>>>>>> 3682cf712779b41f4c3cc14c8c9835f61fd11efe
 
+// ...
 
+function comparerEtAgirSurObstacles() {
+  var obstacles = document.querySelectorAll(".obstacleBig");
+  obstacles.forEach(function (obstacle) {
+    var style = window.getComputedStyle(obstacle);
+    var valeurLeft = parseFloat(style.getPropertyValue("left"));
 
+    if (valeurLeft + obstacle.offsetWidth < 0) {
+      obstacle.remove();
+      console.log("Obstacle supprimé car il est sorti de la page à gauche.");
+    }
+  });
+}
 
+setInterval(comparerEtAgirSurObstacles, 100);
 
+// ...
 
 
 
 
 let animationEnCours = false;
-
 
 document.addEventListener("click", function () {
   if (!animationEnCours) {
@@ -103,16 +136,15 @@ function removeJump() {
 }
 
 function jump() {
-  // Désactiver l'interaction avec l'écran entier (body)
+  
   document.body.style.pointerEvents = "none";
 
-  // Votre fonction à exécuter ici
   character.classList.add("animJump");
   animationEnCours = true;
 
-  // Réactiver l'interaction avec l'écran entier après l'exécution de la fonction
+  
   setTimeout(function () {
     document.body.style.pointerEvents = "auto";
     removeJump();
-  }, 800);
+  }, 1500);
 }
