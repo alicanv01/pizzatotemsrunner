@@ -1,150 +1,110 @@
+let animationEnCours = false;
 const playBtn = document.getElementById("playBtn");
 const home = document.getElementById('home');
-
-
-
-console.log(playBtn)
-
-
-
-
-<<<<<<< HEAD
-
-
-//console.log('obstacleBig:',obstacleBig,'. obstacleBigWidth:',obstacleBigWidth,' obstacleBigLeft:',obstacleBigLeft,' obstacleBigTop:',obstacleBigTop);
-//
+const gameInterface = document.getElementById('gameInterface');
 const character = document.getElementById("character");
-//
-//// Obtenez le style calculé pour cet élément
-//const characterStyles = window.getComputedStyle(character);
-//
 
-//console.log('character:',character,'. characterWidth:',characterWidth,' characterLeft:',characterLeft,' characterTop:',characterTop,' characterHeight:',characterHeight,' characterBottom:',characterBottom);
-//
-//console.log('characterBottom:',characterBottom)
-//console.log('obstacleBigHeight:',obstacleBigHeight)
-//console.log('obstacleBigLeft:',obstacleBigLeft)
-//
-//
-//if (characterBottom < obstacleBigHeight && obstacleBigLeft <= characterWidth) {
-//    console.log('c perdu')
-//}else{
-//    console.log('continu')
-//}
-// Récupérez la largeur à partir du style calculé
-const characterWidth=character.style.getPropertyValue("width");
-const characterHeight = character.style.getPropertyValue("height");
-const characterTop = character.style.getPropertyValue("top");
-const characterBottom =character.style.getPropertyValue("bottom");
-const characterLeft =character.style.getPropertyValue("left");
+let gameStarted = false;
+let bigObstacleCounter = 0;
+let obstacleInterval = 3000;
+let accelerationInterval = 10000;
+let obstacleCreationInterval;
 
-const map = document.getElementById("map")
-const randomNbr = Math.floor((Math.random() * 2) + 1);
-console.log(randomNbr)
+playBtn.addEventListener("click", function() {
+  startGame();
+});
 
-const nombreObstacles = randomNbr; // Changer le nombre selon vos besoins
-=======
-let dataNbr = 0;
->>>>>>> 3682cf712779b41f4c3cc14c8c9835f61fd11efe
-
-function creationObtacle() {
-  const obstacleBig =document.createElement('div');
-  obstacleBig.className = "obstacleBig";
-  const nombreObstacles = Math.floor(Math.random() * 2) +1; // Changer le nombre selon vos besoins
-  const dataObtacle = dataNbr += 1
-  obstacleBig.setAttribute("Obstacle",`obstacle${dataObtacle}`)
-for (let i = 0; i < nombreObstacles; i++) {
-  const obstacleBig = document.createElement('div');
-  obstacleBig.className = "obstacleBig";
-  const obstacle = document.createElement("div");
-  obstacle.className = "obstacle";
-  obstacleBig.appendChild(obstacle); map.appendChild(obstacleBig);
+function startGame() {
+  gameStarted = true;
+  gameInterface.style.display = "none";
+  obstacleCreationInterval = setInterval(createObstacle, obstacleInterval);
+  setInterval(accelerateGame, accelerationInterval);
 }
-<<<<<<< HEAD
 
-=======
-map.appendChild(obstacleBig);
->>>>>>> 3682cf712779b41f4c3cc14c8c9835f61fd11efe
+function createObstacle() {
+  if (gameStarted) {
+    const bigObstacle = document.createElement('div');
+    bigObstacle.className = "obstacleBig";
+    const numberOfObstacles = Math.floor(Math.random() * 2) + 1;
+    const obstacleIndex = bigObstacleCounter += 1;
+    bigObstacle.setAttribute("obstacleIndex", `obstacle${obstacleIndex}`);
 
-}
-setInterval(creationObtacle, 3000);
+    for (let i = 0; i < numberOfObstacles; i++) {
+      const smallObstacle = document.createElement("div");
+      smallObstacle.className = "obstacle";
+      bigObstacle.appendChild(smallObstacle);
+    }
 
+    document.getElementById('map').appendChild(bigObstacle);
 
+    obstacleInterval = Math.floor(Math.random() * (4000 - 1000 + 1)) + 1000;
 
-<<<<<<< HEAD
-
-var obstacleBigLeft = 300;
-const obstacleBiga = document.getElementsByClassName("obstacleBig")[0]; // Sélectionnez le premier élément de la collection
-
-function animObstacle() {
-  obstacleBigLeft -= 0.5;
-  obstacleBiga.style.left = obstacleBigLeft + "px";
-  if (obstacleBigLeft <= 50 && obstacleBigLeft >= 0 && bottom) {
-    console.log("alican")
+    clearInterval(obstacleCreationInterval);
+    obstacleCreationInterval = setInterval(createObstacle, obstacleInterval);
   }
 }
 
-const anime = setInterval(animObstacle, 10);
-
-
-
-
-
-
-
-
-
-
-
-=======
-var obstacles = document.querySelectorAll(".obstacleBig");
->>>>>>> 3682cf712779b41f4c3cc14c8c9835f61fd11efe
-
-// ...
-
-function comparerEtAgirSurObstacles() {
-  var obstacles = document.querySelectorAll(".obstacleBig");
-  obstacles.forEach(function (obstacle) {
-    var style = window.getComputedStyle(obstacle);
-    var valeurLeft = parseFloat(style.getPropertyValue("left"));
-
-    if (valeurLeft + obstacle.offsetWidth < 0) {
-      obstacle.remove();
-      console.log("Obstacle supprimé car il est sorti de la page à gauche.");
-    }
-  });
+function accelerateGame() {
+  if (gameStarted) {
+    obstacleInterval -= 500;
+    clearInterval(obstacleCreationInterval);
+    obstacleCreationInterval = setInterval(createObstacle, obstacleInterval);
+  }
 }
 
-setInterval(comparerEtAgirSurObstacles, 100);
+function compareAndActOnObstacles() {
+  if (gameStarted) {
+    const a =0;
+    let obstacles = document.querySelectorAll(".obstacleBig");
+    obstacles.forEach(function (obstacle) {
+      const style = window.getComputedStyle(obstacle);
+      const leftValue = parseFloat(style.getPropertyValue("left"));
 
-// ...
+      const characterRect = character.getBoundingClientRect();
+      const obstacleRect = obstacle.getBoundingClientRect();
 
+      if (
+        characterRect.right > obstacleRect.left &&
+        characterRect.left < obstacleRect.right &&
+        characterRect.bottom > obstacleRect.top &&
+        characterRect.top < obstacleRect.bottom
+      ) {
+        alert("Game Over");
+        gameInterface.style.display = "block";
+        gameStarted = false;
+        clearInterval(obstacleCreationInterval);
+        a = 1 
+      }
 
+      if (leftValue + obstacle.offsetWidth < 0 || a==1) {
+        obstacle.remove();
+        console.log("Obstacle supprimé car il est sorti de la page à gauche.");
+      }
+    });
+  }
+}
 
-
-let animationEnCours = false;
+setInterval(compareAndActOnObstacles, 10);
 
 document.addEventListener("click", function () {
-  if (!animationEnCours) {
+  if (gameStarted && !animationEnCours) {
     jump();
   }
 });
 
-function removeJump() {
-  character.classList.remove("animJump");
-  animationEnCours = false;
-}
-
 function jump() {
-  
   document.body.style.pointerEvents = "none";
 
   character.classList.add("animJump");
   animationEnCours = true;
 
-  
   setTimeout(function () {
     document.body.style.pointerEvents = "auto";
     removeJump();
-  }, 1500);
+  }, 1000);
+}
+
+function removeJump() {
+  character.classList.remove("animJump");
+  animationEnCours = false;
 }

@@ -135,7 +135,7 @@
 
 
 .animJump{
-    animation: jump 1.5s linear;
+    animation: jump 1s linear;
 }
 
 @keyframes jump{
@@ -183,21 +183,13 @@
     to   { left: -100vw; }
 }
 .obstacleBig {
-<<<<<<< HEAD
- /*animation: obstacleAnimate 3s linear infinite normal ;
-    */position: absolute;
-    background-color: rgb(0, 47, 255);
-    padding: 3px;
-    bottom:0px;
-    left: 0px;
-=======
-    animation: obstacleAnimate 10s linear  normal ;
+    animation: obstacleAnimate 3s linear  normal ;
     position: absolute;
     background-color: rgb(0, 47, 255);
     padding: 3px;
     bottom:0px;
     left:10vw;
->>>>>>> 3682cf712779b41f4c3cc14c8c9835f61fd11efe
+
 }
 
 
