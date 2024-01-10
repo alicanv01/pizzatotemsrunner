@@ -28,10 +28,12 @@ function createObstacle() {
     const numberOfObstacles = Math.floor(Math.random() * 2) + 1;
     const obstacleIndex = bigObstacleCounter += 1;
     bigObstacle.setAttribute("obstacleIndex", `obstacle${obstacleIndex}`);
+    const numberOfImage= Math.floor(Math.random() * 2);
 
     for (let i = 0; i < numberOfObstacles; i++) {
-      const smallObstacle = document.createElement("div");
+      const smallObstacle = document.createElement("img");
       smallObstacle.className = "obstacle";
+      smallObstacle.setAttribute("src",`asset/totems/totem${numberOfImage}.jpg`)
       bigObstacle.appendChild(smallObstacle);
     }
 
@@ -54,7 +56,7 @@ function accelerateGame() {
 
 function compareAndActOnObstacles() {
   if (gameStarted) {
-    const a =0;
+  
     let obstacles = document.querySelectorAll(".obstacleBig");
     obstacles.forEach(function (obstacle) {
       const style = window.getComputedStyle(obstacle);
@@ -69,20 +71,20 @@ function compareAndActOnObstacles() {
         characterRect.bottom > obstacleRect.top &&
         characterRect.top < obstacleRect.bottom
       ) {
-        alert("Game Over");
         gameInterface.style.display = "block";
         gameStarted = false;
         clearInterval(obstacleCreationInterval);
-        a = 1 
+        obstacle.remove();
       }
 
-      if (leftValue + obstacle.offsetWidth < 0 || a==1) {
+      if (leftValue + obstacle.offsetWidth < 0 ) {
         obstacle.remove();
         console.log("Obstacle supprimé car il est sorti de la page à gauche.");
       }
     });
   }
 }
+
 
 setInterval(compareAndActOnObstacles, 10);
 
@@ -108,3 +110,5 @@ function removeJump() {
   character.classList.remove("animJump");
   animationEnCours = false;
 }
+
+
