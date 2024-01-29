@@ -86,7 +86,7 @@ function addObstacle() {
 
     for (let index = 0; index < nbrTotem; index++) {
         const totem = document.createElement("img");
-        totem.setAttribute("src",`asset/totems/totem${nbrTotemImg}.jpg`);
+        totem.setAttribute("src",`./asset/totems/totem${nbrTotemImg}.jpg`);
         totem.classList.add("totem");
         totemContainer.appendChild(totem);
     }
