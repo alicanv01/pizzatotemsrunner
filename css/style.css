@@ -1,193 +1,160 @@
 * {
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
 }
 
-
-:root {
-    --game-w: 100vw;
-    --game-h: 100vh;
-
-    --character-w: 50px;
-    --character-h: 50px;
-    
-    --obstacle-h:50px;
-    --obstacle-w:50px;
-}
-
-
-#game {
-    position:relative;
-    padding: 10px;
+body {display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100vw;
     height: 100vh;
-    background-color: rgb(54, 255, 188);
+    background-color: black;
+    overflow: clip;
 }
 
-/*--------------------------------------------------*/
-
-#gameInterface {
-
-    position: absolute;
-    padding: 10px;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
+.btn{
+    font-size: 2em;
+    cursor: pointer;
+    padding: 0.5em;
+    text-align: center;
 }
 
-/*----------------------------*/
-#home {
-    width: 100%;
-    height: 100%;
+.interface{
+    width: 1400px;
+    height: 700px;
+    border-radius: 50px;/*selon la taille de la h et w*/
+}
+/*----------------------------------------------------------*/
+/*----------------------------------------------------------*/
+
+#gameSection {
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    width: 1500px;
+    height: 800px;
+    border-radius: 50px;/*selon la taille de la h et w*/
+    background-color: rgb(255, 255, 255);
 }
 
-#logoHome {
-    width: fit-content;
-    height: fit-content;
-    background-color: rgb(221, 177, 172);
-    padding: 10px;
-    margin: 100px;
+/*----------------------------------------------------------*/
+/*----------------------------------------------------------*/
 
-}
-
-#playBtn {
-    width: fit-content;
-    height: fit-content;
-    background-color: rgb(221, 177, 172);
-    padding: 10px;
-}
-
-#other {
-    width: fit-content;
-    background-color: rgb(221, 177, 172);
-    padding: 10px;
-}
-
-/*----------------------------*/
-#score {
-    position: absolute;
-    left: 0;
-    width: fit-content;
-    height: fit-content;
-    background-color: rgb(221, 177, 172);
-    padding: 10px;
-}
-
-/*----------------------------*/
-#optionsBtn {
-    position: absolute;
-    right: 0;
-    width: fit-content;
-    height: fit-content;
-    background-color: rgb(221, 177, 172);
-    padding: 10px;
-}
-
-#exitBtn {
-
-    width: 100%;
-    height: 100%;
-    background-color: rgb(155, 110, 106);
-    padding: 10px;
-    margin: 2.5px 0;
-}
-
-#homeBtn {
-
-    width: 100%;
-    height: 100%;
-    background-color: rgb(155, 110, 106);
-    padding: 10px;
-    margin: 2.5px 0;
-
-}
-
-#volumBtn {
-
-    width: 100%;
-    height: 100%;
-    background-color: rgb(155, 110, 106);
-    padding: 10px;
-    margin: 2.5px 0;
-
-}
-
-/*----------------------------*/
-
-/*--------------------------------------------------*/
-
-#gameElement {
-    position: absolute;
-    background-color: black;
-    width: var(--game-w);
-    height: calc(var(--game-h)* 0.3);
-    bottom: 50px;
+/*----------------------------------------------------------*/
+#btnInterface{
     z-index: 1;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(192, 171, 145, 0.279);
 }
 
 
-
-.animJump{
-    animation: jump 1s linear;
+#btnStart {
+    top: 300px;
+    width: 140px;
+    height: 70px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50px;/*selon la taille de la h et w*/
 }
 
-@keyframes jump{
-    0%{bottom: 0;}
-    50%{bottom: calc(var(--obstacle-h) * 5) ;}
-    100%{bottom: 0;}
-}
 
-#character {
+/*----------------------------------------------------------*/
+
+/*----------------------------------------------------------*/
+/*----------------------------------------------------------*/
+
+/*----------------------------------------------------------*/
+
+#gameInterface{
     position: absolute;
     background-color: rgb(255, 255, 255);
-    width: var(--character-w);
-    height:var(--character-h);    
-    bottom:0%;
-    left: 0px;
-    z-index: 1;
+    overflow-y: clip;
 }
 
+@keyframes jump {
+    0% {
+      top: calc(100% - 200px);
+      left: 0;
+    }
+    
+    50% {
+        top: calc(100% - 200px - 500px)/* valeur de  h game interface - taille charactere - la a determiner*/
+    }
 
+    100% {
+      top: calc(100% - 200px);
+      left: 0;
+    }
+  }
 
-#map {
-    position:relative;
-    background-color: rgb(130, 14, 14);
-    width: var( --game-w );
-    height:calc(var(--game-h) * 0.3);
-    overflow-x: hidden;
+.jump{
+    animation: 1s ease-in-out 0s 1 jump;
 }
 
-
-
-
-.obstacle {
-    background-color: rgb(198, 125, 125);
-    width: var(--obstacle-w);
-    height: var(--obstacle-h);
+#charactere{position: absolute;
+    top: calc(100% - 200px); /* valeur de  h game interface - taille charactere*/
+    width: 200px;
+    height: 200px;
 }
-@keyframes obstacleAnimate {
-    from { left: 100vw; }
-    to   { left: -100vw; }
+
+#perso{
+    width: 100%;
+    height: 100%;
 }
-.obstacleBig {
-    display: flex;
-    flex-direction:column ;
-    animation: obstacleAnimate 3s linear  normal ;
+
+.bigTotem{
     position: absolute;
-    background-color: rgb(0, 47, 255);
-    bottom:0px;
-    left:10vw;
+    top: calc(100% - 160px);/* valeur de  h game interface - taille bigtotem */
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    
 }
 
+.smallTotem{
+    position: absolute;
+    top: calc(100% - 80px);
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+}
 
+.totem{
+    width: 80px;
+    height: 80px;
+}
 
+.translate{
+    animation: 2s 1 translate linear;
+}
 
+@keyframes translate {
+    0% {
+        left: calc(100% + 240px);
+        
+    }
+    
+    100% {
+        left: calc(0% - 240px);
+        
+     
+    }
+  }
+.totemContainers{
+    background-color: aqua;
+}
+/*----------------------------------------------------------*/
+.hidden{
+    visibility: hidden;
+}
 
-
-
-
+.none{
+    display: none;
+}/*be fonction a voit pk*/
